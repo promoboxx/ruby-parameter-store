@@ -10,5 +10,5 @@ Gem::Specification.new do |s|
 
   s.require_paths = ["lib"]
   s.files = ['lib/parameter_store.rb']
-  s.test_files = []
+  s.test_files = ['spec/parameter_store_spec.rb']
 end

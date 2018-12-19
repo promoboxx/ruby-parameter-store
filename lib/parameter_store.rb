@@ -5,7 +5,7 @@ module ParameterStore
     attr_accessor :configuration
     attr_reader :aws_config
 
-    @@aws_config ||= Aws::SSM::Client.new # rubocop:disable Style/ClassVars
+    @@aws_config ||= Aws::SSM::Client.new
   end
 
   def self.configure(environment, application_name)
@@ -45,7 +45,7 @@ module ParameterStore
   private
 
   def self.params
-    @params ||= get_app_specific.merge(get_global)
+    @params ||= get_global.merge(get_app_specific)
   end
 
   def self.get_global
