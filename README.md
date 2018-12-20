@@ -42,7 +42,7 @@ So, for instance, to run rails console on API once you have added ParameterStore
 ```aws-vault exec pbxx-dev --  docker-compose run api bundle exec rails c```
 
 
-// Viewing Values in Amazon
+## Viewing Values in Amazon
 
 aws-vault login pbxx-dev to log in
 go to services -> Systems Manager
@@ -50,13 +50,13 @@ left hand nav bar at the bottom under shared resources -> Parameter Store
 
 You can then page through
 
-// Naming Convention
+## Naming Convention
 
 Our convention for naming parameters is /environment/application/key, so for instance /development/accounting/db_user
 We can also set global values for an environment like, for instance /development/global/api_endpoint
 Application values will override global values, so /test/global/test as a key with a value of global_test would be overridden in a test application if we had another parameter configured as /test/test/test 
 
-// Adding new parameters
+## Adding new parameters
 
 Parameters should be added as SecureStrings so that the values are encrypted. They will automatically be decrypted by the Parameter Store when they are pulled down.
 
