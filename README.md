@@ -1,50 +1,50 @@
 # Ruby Parameter Store 
 Ruby Parameter Store package
 
-Usage
-
-
-
-// ...
+## Usage
 
 // Load values into memory in a Rails app, add something like this to a ruby file in config/initializers/
+```
 ParameterStore.configure(<Environment>, <Application>) # So for instance ParameterStore.configure(ENV['RAILS_ENV'], 'pbxx2')
 ParameterStore.get_parameter('TEST_PARAM') #get_parameter runs against a Memoized lookup for the params, meaning getting anything will cache the values we have in amazon
+```
 
+## Get a value
 
-// Get a value
-
-Works with either symbols or strings, so ParameterStore.get_parameter(:db_pass) is the same as ParameterStore.get_parameter('db_pass')
+Works with either symbols or strings, so 
+```ParameterStore.get_parameter(:db_pass)```
+ is the same as 
+```ParameterStore.get_parameter('db_pass')```
 Returns nil if the value was not set
 
-// Must get a value
+## Must get a value
 
-ParameterStore.must_get_parameter(:db_pass) # Throws ParameterStore::ParameterMissingError if value returned would be nil
+```ParameterStore.must_get_parameter(:db_pass) # Throws ParameterStore::ParameterMissingError if value returned would be nil```
 
-// Testing
+## Testing
 
-export AWS_REGION="us-east-1"
+```export AWS_REGION="us-east-1"
 aws-vault exec pbxx-dev -- rspec spec/parameter_store_spec.rb
-
-// Running in Docker
+```
+## Running in Docker
 
 Add the following to your docker-compose.yml 's environment section for the app that will be using Parameter Store
-      AWS_REGION: us-east-1
+```      AWS_REGION: us-east-1
       AWS_SECURITY_TOKEN: $AWS_SECURITY_TOKEN
       AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
       AWS_DEFAULT_REGION: us-east-1
       AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-
+```
 To run the container, just add aws-vault exec pbxx-dev -- before your command
 
 So, for instance, to run rails console on API once you have added ParameterStore package to it:
-aws-vault exec pbxx-dev --  docker-compose run api bundle exec rails c
+```aws-vault exec pbxx-dev --  docker-compose run api bundle exec rails c```
 
 
 // Viewing Values in Amazon
 
-`aws-vault login pbxx-dev` to log in
+aws-vault login pbxx-dev to log in
 go to services -> Systems Manager
 left hand nav bar at the bottom under shared resources -> Parameter Store
 
