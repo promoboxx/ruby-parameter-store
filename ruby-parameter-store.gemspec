@@ -7,6 +7,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rake', '~> 0.9'
   s.add_development_dependency 'rspec', '~> 3.1'
+  s.add_dependency 'aws-sdk-ssm'
 
   s.require_paths = ["lib"]
   s.files = ['lib/parameter_store.rb']
