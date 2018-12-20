@@ -3,11 +3,13 @@ Ruby Parameter Store package
 
 ## Usage
 
-// Load values into memory in a Rails app, add something like this to a ruby file in config/initializers/
-```
-ParameterStore.configure(<Environment>, <Application>) # So for instance ParameterStore.configure(ENV['RAILS_ENV'], 'pbxx2')
-ParameterStore.get_parameter('TEST_PARAM') #get_parameter runs against a Memoized lookup for the params, meaning getting anything will cache the values we have in amazon
-```
+## Load values into memory in a Rails app, add something like this to a ruby file in config/initializers/
+``` ParameterStore.configure(<Environment>, <Application>) ```
+ So for instance 
+``` ParameterStore.configure(ENV['RAILS_ENV'], 'pbxx2')
+ParameterStore.get_parameter('TEST_PARAM') ```
+
+get_parameter runs against a Memoized lookup for the params, meaning getting anything will cache the values we have in amazon
 
 ## Get a value
 
@@ -19,7 +21,7 @@ Returns nil if the value was not set
 
 ## Must get a value
 
-```ParameterStore.must_get_parameter(:db_pass) # Throws ParameterStore::ParameterMissingError if value returned would be nil```
+```ParameterStore.must_get_parameter(:db_pass) ``` # Throws ParameterStore::ParameterMissingError if value returned would be nil
 
 ## Testing
 
@@ -36,7 +38,7 @@ Add the following to your docker-compose.yml 's environment section for the app 
       AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
 ```
-To run the container, just add aws-vault exec pbxx-dev -- before your command
+To run the container, just add ```aws-vault exec pbxx-dev --``` before your command
 
 So, for instance, to run rails console on API once you have added ParameterStore package to it:
 ```aws-vault exec pbxx-dev --  docker-compose run api bundle exec rails c```
