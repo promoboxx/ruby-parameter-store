@@ -5,9 +5,13 @@ Ruby Parameter Store package
 
 ## Load values into memory in a Rails app, add something like this to a ruby file in config/initializers/
 ``` ParameterStore.configure(<Environment>, <Application>) ```
- So for instance 
-``` ParameterStore.configure(ENV['RAILS_ENV'], 'pbxx2')
-ParameterStore.get_parameter('TEST_PARAM') ```
+
+So, for instance
+ 
+``` 
+ParameterStore.configure(ENV['RAILS_ENV'], 'pbxx2')
+ParameterStore.get_parameter('TEST_PARAM') 
+```
 
 get_parameter runs against a Memoized lookup for the params, meaning getting anything will cache the values we have in amazon
 
