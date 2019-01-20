@@ -4,20 +4,20 @@ module RubyParameterStore
 
     include Singleton
 
-    def self.get_parameter(name)
-      if name.is_a? String
-        params[name.to_sym]
-      else
-        params[name]
-      end
+    def self.get(name)
+      params[name.to_sym]
     end
 
-    def self.must_get_parameter(name)
-      val = get_parameter(name)
+    def self.get!(name)
+      val = get(name)
       if val.nil?
         raise ParameterMissingError, "required parameter does not have a non-nil value"
       end
       val
+    end
+
+    def self.clear
+      @_params = nil
     end
 
     class RubyParameterStore::ParameterMissingError < StandardError ; end
@@ -25,16 +25,24 @@ module RubyParameterStore
     private
 
     def self.params
-      @params ||= get_global.merge(get_app_specific)
+      @_params ||= get_global.merge(get_app_specific)
     end
 
     def self.get_global
-      values = config.aws_client.get_parameters_by_path(path: "/#{config.environment}/global/", with_decryption: true, max_results: 10)
+      values = config.aws_client.get_parameters_by_path({
+        path: "/#{config.environment}/global/",
+        with_decryption: true,
+        max_results: 10
+      })
       parse_values(values)
     end
 
     def self.get_app_specific
-      values = config.aws_client.get_parameters_by_path(path: "/#{config.environment}/#{config.app_name}/", with_decryption: true, max_results: 10)
+      values = config.aws_client.get_parameters_by_path({
+        path: "/#{config.environment}/#{config.app_name}/",
+        with_decryption: true,
+        max_results: 10
+      })
       parse_values(values)
     end
 

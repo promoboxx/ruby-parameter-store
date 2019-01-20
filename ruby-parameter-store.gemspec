@@ -5,8 +5,8 @@ Gem::Specification.new do |s|
   s.author = 'Promoboxx Inc'
   s.summary = "Ruby Parameter Store implements Promoboxx parameter retrieval and coalescence in Ruby"
 
-  s.add_development_dependency 'rake', '~> 0.9'
-  s.add_development_dependency 'rspec', '~> 3.1'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rspec'
   s.add_dependency 'aws-sdk-ssm'
 
   s.require_paths = ["lib"]

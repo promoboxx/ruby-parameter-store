@@ -1,5 +1,4 @@
-# Ruby RubyParameter Store
-Ruby RubyParameter Store package
+# ruby-parameter-store
 
 ## Usage
 
@@ -11,32 +10,52 @@ RubyParameterStore.configure do |config|
   config.aws_client = Aws::SSM::Client.new
 end
 ```
-### Retrieve values
+### Retrieving values
+
+#### Get with silent fail
+
+* Returns nil if the value was not set.
 
 ```
-RubyParameterStore::Retrieve.get_parameter('TEST_PARAM')
+RubyParameterStore::Retrieve.get('param_name')
 ```
 
-`get_parameter` runs against a memoized lookup for the params, meaning getting anything will cache the values we have in AWS. Keys will work with symobls or strings.  Returns nil if the value was not set.
+#### Get with loud fail
 
-### Must get a value
+* Throws `RubyParameterStore::ParameterMissingError` if value returned would be nil
 
-```RubyParameterStore::Retriever.must_get_parameter(:db_pass) ``` # Throws RubyParameterStore::ParameterMissingError if value returned would be nil
+```
+RubyParameterStore::Retriever.get!('param_name')
+```
+
+### Clearing cache
+
+All params coming from AWS, both global and app-specifc, are memoized the first time a single param is requested.
+To clear the values and re-retrieve, use:
+
+```
+RubyParameterStore::Retriever.clear
+```
 
 ## Testing
 
 ### Mocks
 
-`rspec`
+```
+rspec
+```
 
 ### Actual
+
 ```
 export AWS_REGION="us-east-1"
 aws-vault exec pbxx-dev -- rspec spec
 ```
+
 ## Running in Docker
 
 Add the following to your docker-compose.yml's environment section for the app that will be using ruby-parameter-store
+
 ```
 AWS_REGION: us-east-1
 AWS_SECURITY_TOKEN: $AWS_SECURITY_TOKEN
@@ -45,10 +64,14 @@ AWS_DEFAULT_REGION: us-east-1
 AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
 AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
 ```
+
 To run the container, just add ```aws-vault exec pbxx-dev --``` before your command
 
 So, for instance, to run rails console on API once you have added RubyParameterStore package to it:
-```aws-vault exec pbxx-dev --  docker-compose run api bundle exec rails c```
+
+```
+aws-vault exec pbxx-dev --  docker-compose run api bundle exec rails c
+```
 
 ## Viewing Values in Amazon
 
@@ -66,6 +89,6 @@ You can then page through
 
 ## Adding new parameters
 
-RubyParameters should be added as SecureStrings so that the values are encrypted. They will automatically be decrypted by the RubyParameter Store when they are pulled down.
+RubyParameters should be added as SecureStrings so that the values are encrypted. They will automatically be decrypted by the RubyParameterStore when they are pulled down.
 
-I have been using the alias/aws/ssm key to encrypt my values. You can still see the values in RubyParameter Store if you need to from the web UI.
+I have been using the alias/aws/ssm key to encrypt my values. You can still see the values in RubyParameterStore if you need to from the web UI.

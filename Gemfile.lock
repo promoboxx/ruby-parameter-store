@@ -2,8 +2,8 @@ GEM
   remote: http://rubygems.org/
   specs:
     aws-eventstream (1.0.1)
-    aws-partitions (1.126.0)
-    aws-sdk-core (3.44.1)
+    aws-partitions (1.133.0)
+    aws-sdk-core (3.46.0)
       aws-eventstream (~> 1.0)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.0)
@@ -21,4 +21,4 @@ DEPENDENCIES
   aws-sdk-ssm
 
 BUNDLED WITH
-   1.15.3
+   1.17.3

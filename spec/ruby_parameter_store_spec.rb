@@ -8,7 +8,6 @@ RSpec.describe RubyParameterStore do
     let(:client) { double("aws client") }
 
     before do
-      RubyParameterStore.reset
       RubyParameterStore.configure do |config|
         config.environment = "local"
         config.app_name = "foobar",
@@ -27,27 +26,46 @@ RSpec.describe RubyParameterStore do
     end
 
     it 'gets a param from a string' do
-      expect(RubyParameterStore::Retrieve.get_parameter('foo')).to eq('bar')
+      expect(RubyParameterStore::Retrieve.get('foo')).to eq('bar')
+    end
+
+    it 'memoizes params' do
+      RubyParameterStore::Retrieve.clear
+      RubyParameterStore::Retrieve.get('foo')
+      RubyParameterStore::Retrieve.get('foo')
+
+      # calls out to aws twice by default, once for global and once for app-specific
+      expect(client).to have_received(:get_parameters_by_path).twice
+    end
+
+    it 'clear will reset params memoization' do
+      RubyParameterStore::Retrieve.clear
+      RubyParameterStore::Retrieve.get('foo')
+      RubyParameterStore::Retrieve.clear
+      RubyParameterStore::Retrieve.get('foo')
+
+      # calls out to aws twice by default, once for global and once for app-specific
+      expect(client).to have_received(:get_parameters_by_path).exactly(4).times
     end
 
     it 'gets a param from a symbol' do
-      expect(RubyParameterStore::Retrieve.get_parameter(:foo)).to eq('bar')
+      expect(RubyParameterStore::Retrieve.get(:foo)).to eq('bar')
     end
 
     it 'returns nil when value is not present' do
-      expect(RubyParameterStore::Retrieve.get_parameter('missing')).to be_nil
+      expect(RubyParameterStore::Retrieve.get('missing')).to be_nil
     end
 
     it 'must_get_parameter gets a param from a string' do
-      expect(RubyParameterStore::Retrieve.must_get_parameter('foo')).to eq('bar')
+      expect(RubyParameterStore::Retrieve.get!('foo')).to eq('bar')
     end
 
     it 'must_get_parameter gets a param from a symbol' do
-      expect(RubyParameterStore::Retrieve.must_get_parameter(:foo)).to eq('bar')
+      expect(RubyParameterStore::Retrieve.get!(:foo)).to eq('bar')
     end
 
     it 'raises an error when must_get_parameter is called on a param that is not present' do
-      expect{RubyParameterStore::Retrieve.must_get_parameter('missing')}.to raise_error(RubyParameterStore::ParameterMissingError)
+      expect{RubyParameterStore::Retrieve.get!('missing')}.to raise_error(RubyParameterStore::ParameterMissingError)
     end
   end
 
