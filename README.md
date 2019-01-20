@@ -1,5 +1,9 @@
 # ruby-parameter-store
 
+[![CircleCI](https://circleci.com/gh/promoboxx/ruby-parameter-store.svg?style=svg)](https://circleci.com/gh/promoboxx/ruby-parameter-store)
+[![Maintainability](https://api.codeclimate.com/v1/badges/dbae4922f2e021549af9/maintainability)](https://codeclimate.com/repos/5c1ac8712cae6002b40016f8/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/dbae4922f2e021549af9/test_coverage)](https://codeclimate.com/repos/5c1ac8712cae6002b40016f8/test_coverage)
+
 ## Usage
 
 ### Configure the RubyParameterStore singleton in config/initializers/ruby_parameter_store.rb

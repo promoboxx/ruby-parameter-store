@@ -1,5 +1,5 @@
-require 'ruby_parameter_store'
 require 'spec_helper'
+require 'ruby_parameter_store'
 
 RSpec.describe RubyParameterStore do
 
