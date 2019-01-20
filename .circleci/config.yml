@@ -2,8 +2,6 @@ version: 2
 jobs:
   build:
     parallelism: 1
-    environment:
-      CC_TEST_REPORTER_ID: "a143dad6812c5387bb4e919ca46288884f6cdc6894327d6a890ff9ded6d5adf2"
     docker:
       - image: circleci/ruby:2.3
     working_directory: ~/pbxx
@@ -43,3 +41,13 @@ jobs:
 
       - store_test_results:
           path: test_results
+
+      - run:
+          name: Upload to Gemfury
+          context: gem
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              gem build ruby-parameter-store.gemspec
+              curl -F package=@ruby-parameter-store-0.0.1.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/promoboxx/
+            fi
+
