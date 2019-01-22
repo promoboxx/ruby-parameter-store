@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    context: 'gem'
     parallelism: 1
     docker:
       - image: circleci/ruby:2.3
@@ -48,6 +49,6 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               gem build ruby-parameter-store.gemspec
-              curl --fail -F package=@ruby-parameter-store-0.0.2.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/promoboxx/
+              curl --fail -F package=@ruby-parameter-store-0.0.2.gem https://NGHqu-QvDZ17MPOhTlVlKEDZi3QMZaOA4@push.fury.io/promoboxx/
             fi
 
