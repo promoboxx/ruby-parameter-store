@@ -2,19 +2,19 @@ PATH
   remote: .
   specs:
     ruby-parameter-store (0.0.1)
-      aws-sdk-ssm
+      aws-sdk-ssm (~> 1)
 
 GEM
   remote: http://rubygems.org/
   specs:
     aws-eventstream (1.0.1)
-    aws-partitions (1.133.0)
+    aws-partitions (1.134.0)
     aws-sdk-core (3.46.0)
       aws-eventstream (~> 1.0)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-ssm (1.34.0)
+    aws-sdk-ssm (1.35.0)
       aws-sdk-core (~> 3, >= 3.39.0)
       aws-sigv4 (~> 1.0)
     aws-sigv4 (1.0.3)
@@ -48,11 +48,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  rake
-  rspec
-  rspec_junit_formatter
+  rake (~> 12)
+  rspec (~> 3)
+  rspec_junit_formatter (~> 0.4)
   ruby-parameter-store!
-  simplecov
+  simplecov (~> 0.16)
 
 BUNDLED WITH
    1.17.3
