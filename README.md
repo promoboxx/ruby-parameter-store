@@ -32,15 +32,6 @@ RubyParameterStore::Retrieve.get('param_name')
 RubyParameterStore::Retriever.get!('param_name')
 ```
 
-### Clearing cache
-
-All params coming from AWS, both global and app-specifc, are memoized the first time a single param is requested.
-To clear the values and re-retrieve, use:
-
-```
-RubyParameterStore::Retriever.clear
-```
-
 ## Testing
 
 ### Mocks

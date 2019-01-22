@@ -16,10 +16,6 @@ module RubyParameterStore
       val
     end
 
-    def self.clear
-      @_params = nil
-    end
-
     class RubyParameterStore::ParameterMissingError < StandardError ; end
 
     private
