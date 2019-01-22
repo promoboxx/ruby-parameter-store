@@ -12,4 +12,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 3'
   s.add_development_dependency 'rspec_junit_formatter', '~> 0.4'
   s.add_development_dependency "simplecov", '~> 0.16'
+
+  s.files = [
+    'lib/ruby_parameter_store.rb',
+    'lib/ruby_parameter_store/configuration.rb',
+    'lib/ruby_parameter_store/retrieve.rb',
+  ]
 end

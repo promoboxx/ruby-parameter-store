@@ -29,14 +29,6 @@ RSpec.describe RubyParameterStore do
       expect(RubyParameterStore::Retrieve.get('foo')).to eq('bar')
     end
 
-    it 'memoizes params' do
-      RubyParameterStore::Retrieve.get('foo')
-      RubyParameterStore::Retrieve.get('foo')
-
-      # calls out to aws twice by default, once for global and once for app-specific
-      expect(client).to have_received(:get_parameters_by_path).twice
-    end
-
     it 'gets a param from a symbol' do
       expect(RubyParameterStore::Retrieve.get(:foo)).to eq('bar')
     end
