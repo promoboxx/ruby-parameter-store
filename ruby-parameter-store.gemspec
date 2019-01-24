@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "ruby-parameter-store"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
   s.date = "2018-12-14"
   s.author = 'Promoboxx Inc'
   s.summary = "Ruby Parameter Store implements Promoboxx parameter retrieval and coalescence in Ruby"
