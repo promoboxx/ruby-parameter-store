@@ -29,25 +29,6 @@ RSpec.describe RubyParameterStore do
       expect(RubyParameterStore::Retrieve.get('foo')).to eq('bar')
     end
 
-    it 'memoizes params' do
-      RubyParameterStore::Retrieve.clear
-      RubyParameterStore::Retrieve.get('foo')
-      RubyParameterStore::Retrieve.get('foo')
-
-      # calls out to aws twice by default, once for global and once for app-specific
-      expect(client).to have_received(:get_parameters_by_path).twice
-    end
-
-    it 'clear will reset params memoization' do
-      RubyParameterStore::Retrieve.clear
-      RubyParameterStore::Retrieve.get('foo')
-      RubyParameterStore::Retrieve.clear
-      RubyParameterStore::Retrieve.get('foo')
-
-      # calls out to aws twice by default, once for global and once for app-specific
-      expect(client).to have_received(:get_parameters_by_path).exactly(4).times
-    end
-
     it 'gets a param from a symbol' do
       expect(RubyParameterStore::Retrieve.get(:foo)).to eq('bar')
     end
@@ -72,7 +53,6 @@ RSpec.describe RubyParameterStore do
   context 'actual', skip: true do
 
     before do
-      RubyParameterStore.reset
       RubyParameterStore.configure do |config|
         config.environment = "test"
         config.app_name = "test",
