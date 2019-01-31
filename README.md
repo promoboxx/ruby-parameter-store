@@ -29,7 +29,7 @@ RubyParameterStore::Retrieve.get('param_name')
 * Throws `RubyParameterStore::ParameterMissingError` if value returned would be nil
 
 ```
-RubyParameterStore::Retriever.get!('param_name')
+RubyParameterStore::Retrieve.get!('param_name')
 ```
 
 ## Testing
