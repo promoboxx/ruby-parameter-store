@@ -10,7 +10,7 @@
 ```
 RubyParameterStore.configure do |config|
   config.environment = "local"
-  config.app_name = "foobar",
+  config.app_name = "foobar"
   config.aws_client = Aws::SSM::Client.new
 end
 ```
