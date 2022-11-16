@@ -22,8 +22,20 @@ jobs:
             chmod +x ./cc-test-reporter
 
       - run:
+          name: Update RubyGems
+          command: sudo gem update --system 3.3.25
+
+      - run:
+          name: Install bundler
+          command: gem install bundler
+
+      - run:
+          name: Configure bundler
+          command: bundle config set --local path 'vendor/bundle'
+
+      - run:
           name: Bundle Install
-          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+          command: bundle check || bundle install --jobs=4 --retry=3
 
       - save_cache:
           key: ruby-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile" }}-{{ checksum "ruby-parameter-store.gemspec" }}
@@ -49,6 +61,6 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               gem build ruby-parameter-store.gemspec
-              curl --fail -F package=@ruby-parameter-store-0.0.2.gem https://NGHqu-QvDZ17MPOhTlVlKEDZi3QMZaOA4@push.fury.io/promoboxx/
+              curl --fail -F package=@ruby-parameter-store-0.0.4.gem https://NGHqu-QvDZ17MPOhTlVlKEDZi3QMZaOA4@push.fury.io/promoboxx/
             fi
 

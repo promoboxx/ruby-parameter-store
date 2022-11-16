@@ -4,7 +4,30 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/dbae4922f2e021549af9/maintainability)](https://codeclimate.com/repos/5c1ac8712cae6002b40016f8/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/dbae4922f2e021549af9/test_coverage)](https://codeclimate.com/repos/5c1ac8712cae6002b40016f8/test_coverage)
 
+## Development and Building
+
+1. Update code
+2. Increment version in gemspec
+3. Increment version in Gemfury publish command in .circleci/config.yml
+4. Open pull request
+5. Merge pull request
+6. Circleci master build will publish to Gemfury
+
 ## Usage
+
+Gemfile:
+
+```ruby
+source 'https://gem.fury.io/promoboxx/' do
+  gem 'ruby-parameter-store'
+end
+```
+
+or
+
+```ruby
+gem 'ruby-jwt-auth', git: 'https://github.com/Promoboxx/ruby-parameter-store.git'
+```
 
 ### Configure the RubyParameterStore singleton in config/initializers/ruby_parameter_store.rb
 ```
